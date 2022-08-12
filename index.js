@@ -7,14 +7,21 @@ app.use(express.json())
 
 console.log("Servidor iniciado!")
 
-app.get("/err", (req, res, next) => {
-    console.log(req.body)
-    res.status(404).json({"err":"Usuário não autenticado!"})
-})
 app.get("/", (req, res, next) => {
-    console.log(req.body)
-    let resposta = jwt.sign({"userID":1}, SECRET)
-    res.status(200).json({"token":resposta})
+    let callback = req.body.token
+    if (callback) {
+        try {
+            jwt.verify(callback, SECRET)
+        }catch (err) {
+            res.status(404).json({"err":"Usuário não autenticado!"})
+        }
+        res.status(200).json({"resposta":"Aprovado!"})
+        if (resposta) {
+        }
+    } else {
+        let resposta = jwt.sign({"userID":1}, SECRET)
+        res.status(200).json({"token":resposta})
+    }
 })
 
 app.listen(3000)
