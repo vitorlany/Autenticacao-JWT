@@ -1,17 +1,12 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
+const cors = require('cors')
 const app = express()
 const SECRET = "TESTETESTE" // passar isso para .env
 
 // nodemon index.js
 
-app.use((req,res,next)=>{
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
-    res.setHeader('Access-Control-Allow-Methods','Content-Type','Authorization');
-    next();
-})
-
+app.use(cors())
 app.use(express.json())
 
 console.log("Servidor iniciado!")
@@ -42,5 +37,10 @@ app.post("/login", (req, res, next) => {
         res.status(203).json({"err":"Usuário inválido"})
     }
 })
+
+// imprime todos os dados de resposta
+app.post("/teste", (req, res, next) => {
+    console.log(req.body)
+} )
 
 app.listen(3000)
