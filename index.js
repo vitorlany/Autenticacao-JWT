@@ -16,7 +16,7 @@ app.use(express.json())
 
 console.log("Servidor iniciado!")
 
-app.post("/", (req, res, next) => {
+app.get("/", (req, res, next) => {
     const CALLBACK = req.headers["authorization"]
     if (CALLBACK) {
         try {
