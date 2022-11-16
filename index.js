@@ -1,8 +1,20 @@
 const express = require("express")
 const jwt = require("jsonwebtoken")
+var mysql = require('mysql')
 const cors = require('cors')
 const app = express()
 const SECRET = "TESTETESTE" // passar isso para .env
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: ""
+})
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!")
+})
 
 // nodemon index.js
 
@@ -40,6 +52,6 @@ app.post("/login", (req, res, next) => {
 // imprime todos os dados de resposta
 app.post("/teste", (req, res, next) => {
     console.log(req.body)
-} )
+})
 
 app.listen(3000)
